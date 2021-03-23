@@ -30,17 +30,19 @@
 
 int		ft_printf(const char *fmt, ...)
 {
+	t_flags flags;
 	va_list args;
 	va_start(args, fmt);
 	int i;
 
-	i = 0;
+	flags.i = 0;
 	
-	while (fmt[i] != '\0')
+	while (fmt[flags.i] != '\0')
 	{
-		if (fmt[i] == '%')
+		if (fmt[flags.i] == '%')
 		{
-			check_fmt(fmt + i + 1, )
+			flags.i++;
+			check_fmt(fmt, &flags);
 
 
 			// if (fmt[i+1] == 'd')
@@ -59,8 +61,8 @@ int		ft_printf(const char *fmt, ...)
 			// 	printf("%c", va_arg(args, int));
 		}
 		else
-			ft_putchar(fmt[i]);
-		i++;
+			ft_putchar(fmt[flags.i]);
+		flags.i++;
 	}
 	va_end(args);
 	return 1;
@@ -71,6 +73,7 @@ int		ft_printf(const char *fmt, ...)
 
 int		main()
 {
-	ft_printf("qqqqq : %#0333.25suuu%d\n%", "abc", 42);
+	ft_printf("qqqqq : %07.5duuu%8.9d\n", 24, 42);
+	printf("qqqqq : %07.5duuu%8.9d\n", 24, 42);
 	return 0;
 }

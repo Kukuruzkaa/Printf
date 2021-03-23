@@ -22,15 +22,18 @@ typedef struct	s_flags
 {
 	int		width;
 	int		precision;
-	int		minus;
-	int		zero;
-	int     star;
+	int 	minus;
+	int 	zero;
+	int 	i;
+	char 	type;
 }				t_flags;
 
 int	ft_strlen(const char *s);
 void	ft_putchar(char c);
 int		ft_printf(const char* fmt, ...);
 int	ft_isdigit(int c);
+int	ft_strchr(const char *s, int c);
+void 	check_fmt(const char *s, t_flags *flags);
 
 
 
