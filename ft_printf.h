@@ -34,7 +34,7 @@ int		ft_printf(const char* fmt, ...);
 int	ft_isdigit(int c);
 int	ft_strchr(const char *s, int c);
 void 	check_fmt(const char *s, t_flags *flags);
-
+int	 ft_strchr(const char *s, int c);
 
 
 #endif

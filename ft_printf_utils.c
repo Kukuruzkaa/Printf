@@ -36,3 +36,15 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
+int	 ft_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == c)
+			return (1);
+		s++;
+	}
+	if (*s == c)
+		return (1);
+	return (0);
+}
