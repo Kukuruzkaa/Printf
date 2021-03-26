@@ -29,6 +29,30 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
+void	ft_putstr(char *s, int maxlen)
+{
+	int i;
+
+	i = 0;
+	while (s[i] != '\0' && i < maxlen)
+	{
+		ft_putchar(s[i]);
+		i++;
+	}
+}
+
+void 	fill_space(int len, char c)
+{
+	int i;
+
+	i = 0;
+	while (i < len)
+	{
+		ft_putchar(c);
+		i++;
+	}
+}
+
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')

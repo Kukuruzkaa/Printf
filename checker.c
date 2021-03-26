@@ -16,14 +16,17 @@ void init_flags(t_flags *flags)
 {
 	flags->width = 0;
 	flags->precision = 0;
+	flags->is_prec = 0;
 	flags->minus = 0;
 	flags->zero = 0;
+	flags->strlen = 0;
 	flags->type = ' ';
 }
 
 void	get_width(const char *s, t_flags *flags, va_list ap)
 {
-	while (s[flags->i] && s[flags->i] != '.')
+	// while (s[flags->i] && (s[flags->i] != '.' || ft_strchr("cspdiuxX%", s[flags->i]) != 0))
+	while (s[flags->i] && (s[flags->i] != '.' && ft_strchr("cspdiuxX%", s[flags->i]) == 0))
 	{
 		if (s[flags->i] == '0')
 			flags->zero = 1;
@@ -35,6 +38,8 @@ void	get_width(const char *s, t_flags *flags, va_list ap)
 			flags->width = (flags->width * 10) + s[flags->i] - '0';
 		flags->i++;
 	}
+	if (ft_strchr("cspdiuxX%", s[flags->i]) == 1)
+		flags->type = s[flags->i];
 }
 
 void	get_precision_and_type(const char *s, t_flags *flags, va_list ap)
@@ -42,14 +47,20 @@ void	get_precision_and_type(const char *s, t_flags *flags, va_list ap)
 	while (s[flags->i] && ft_strchr("cspdiuxX%", s[flags->i]) == 0)
 	{
 		if (s[flags->i] == '.')
-		{
+		{	
+			flags->is_prec = 1;
 			flags->i++;
 			if (s[flags->i] == '*')
 				flags->precision = va_arg(ap, int);	
-			else if (ft_isdigit(s[flags->i]))
-				flags->precision = (flags->precision * 10) + s[flags->i] - '0';
+			else 
+			{
+				while (ft_isdigit(s[flags->i]))
+				{
+					flags->precision = (flags->precision * 10) + s[flags->i] - '0';
+					flags->i++;
+				}
+			}
 		}
-		flags->i++;
 	}
 	if (ft_strchr("cspdiuxX%", s[flags->i]) == 1)
 		flags->type = s[flags->i];
@@ -71,7 +82,7 @@ void	get_precision_and_type(const char *s, t_flags *flags, va_list ap)
 
 void 	check_fmt(const char *s, t_flags *flags)
 {
-	int i;
+	//int i;
 	va_list ap;
 
 	init_flags(flags);
@@ -79,29 +90,17 @@ void 	check_fmt(const char *s, t_flags *flags)
 	// parser()
 	// get_flags(s, flags);
 	get_width(s, flags, ap);
-	printf(" zero: %d\n", flags->zero);
-	printf(" minus : %d\n", flags->minus);
-	printf(" width : %d\n", flags->width);
+	//printf(" zero: %d\n", flags->zero);
+	//printf(" minus : %d\n", flags->minus);
+	//printf(" width : %d\n", flags->width);
 	get_precision_and_type(s, flags, ap);
-	printf(" precision : %d\n", flags->precision);
-	printf(" type: %c\n", flags->type);
+	//printf(" precision : %d\n", flags->precision);
+	//printf(" type: %c\n", flags->type);
 }
 
 
 
 
-
-
-
-
-
-
-
-// 	// formatter()
-// 	if ('d')
-// 		process_d() //conversion 
-// 	else if ('s')
-// 		process_s()
 
 
 

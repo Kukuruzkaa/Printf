@@ -33,7 +33,7 @@ int		ft_printf(const char *fmt, ...)
 	t_flags flags;
 	va_list args;
 	va_start(args, fmt);
-	int i;
+	//int i;
 
 	flags.i = 0;
 	
@@ -50,18 +50,26 @@ int		ft_printf(const char *fmt, ...)
 			// 	i++;
 			// 	printf("%d", va_arg(args, int));
 			// }
-			// else if (fmt[i+1] == 's')
+			if (fmt[flags.i] == 's')
+			{
+				//printf("%s\n", "ici");
+				ft_process_s(&flags, args);
+			}
 			// {	
 			// 	i++;
 			// 	printf("%s", va_arg(args, char*));
 			// }
-			// else if (fmt[i+1] == 'c')
+			// if (fmt[flags.i] == 'c')
+			// 	ft_process_c(&flags, args);
 			// {	
 			// 	i++;
 			// 	printf("%c", va_arg(args, int));
 		}
 		else
+		{
 			ft_putchar(fmt[flags.i]);
+			//printf("%s\n", "hola");
+		}
 		flags.i++;
 	}
 	va_end(args);
@@ -73,7 +81,7 @@ int		ft_printf(const char *fmt, ...)
 
 int		main()
 {
-	ft_printf("qqqqq : %07.5duuu%8.9d\n", 24, 42);
-	printf("qqqqq : %07.5duuu%8.9d\n", 24, 42);
+	ft_printf("qqqqq : %6s\n", "Hel");
+	//printf("qqqqq : %6.3s\n", "Hellohello");
 	return 0;
 }

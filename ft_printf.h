@@ -22,8 +22,10 @@ typedef struct	s_flags
 {
 	int		width;
 	int		precision;
+	int     is_prec;
 	int 	minus;
 	int 	zero;
+	int		strlen;
 	int 	i;
 	char 	type;
 }				t_flags;
@@ -35,6 +37,8 @@ int	ft_isdigit(int c);
 int	ft_strchr(const char *s, int c);
 void 	check_fmt(const char *s, t_flags *flags);
 int	 ft_strchr(const char *s, int c);
-
-
+void 	ft_process_c(t_flags *flags, va_list ap);
+void 	fill_space(int len, char c);
+void	ft_putstr(char *s, int maxlen);
+void 	ft_process_s(t_flags *flags, va_list ap);
 #endif
