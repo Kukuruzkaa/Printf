@@ -19,31 +19,19 @@ void 	ft_process_s(t_flags *flags, va_list ap)
 	flags->i++;
 	s = va_arg(ap, char*);
 	if (!s)
-	{
-		//printf("%s\n", "aca");
 		return;
-	}
 	flags->strlen = ft_strlen(s);
 	if (flags->is_prec && flags->precision < flags->strlen)
-{		flags->strlen = flags->precision;
-		//printf("%s\n", "hola1");
-}
+		flags->strlen = flags->precision;
 	if (flags->minus == 0)
-	{g
+	{
 		fill_space(flags->width - flags->strlen, ' ');
 		ft_putstr(s, flags->strlen);
-		//printf("%s\n", "hola");
 	}
-	// else if (flags->width)
-	// {
-
-	// }g
 	else 
 	{
 		ft_putstr(s, flags->strlen);
 		fill_space(flags->width - flags->strlen, ' ');
-		//printf("%s\n", "hola2");
 	}
-	//printf("%s\n", "aqui");
 }
 

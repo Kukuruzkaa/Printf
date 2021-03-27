@@ -23,6 +23,7 @@ typedef struct	s_flags
 	int		width;
 	int		precision;
 	int     is_prec;
+	int 	zero_filler;
 	int 	minus;
 	int 	zero;
 	int		strlen;
@@ -41,4 +42,5 @@ void 	ft_process_c(t_flags *flags, va_list ap);
 void 	fill_space(int len, char c);
 void	ft_putstr(char *s, int maxlen);
 void 	ft_process_s(t_flags *flags, va_list ap);
+void 	ft_process_d(t_flags *flags, va_list ap);
 #endif

@@ -17,6 +17,7 @@ void init_flags(t_flags *flags)
 	flags->width = 0;
 	flags->precision = 0;
 	flags->is_prec = 0;
+	flags->zero_filler = 0;
 	flags->minus = 0;
 	flags->zero = 0;
 	flags->strlen = 0;

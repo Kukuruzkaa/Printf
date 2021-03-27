@@ -45,16 +45,10 @@ int		ft_printf(const char *fmt, ...)
 			check_fmt(fmt, &flags);
 
 
-			// if (fmt[i+1] == 'd')
-			// {
-			// 	i++;
-			// 	printf("%d", va_arg(args, int));
-			// }
-			if (fmt[flags.i] == 's')
-			{
-				//printf("%s\n", "ici");
-				ft_process_s(&flags, args);
-			}
+			if (fmt[flags.i] == 'd')
+				ft_process_d(&flags, args);
+			// if (fmt[flags.i] == 's')
+			// 	ft_process_s(&flags, args);
 			// {	
 			// 	i++;
 			// 	printf("%s", va_arg(args, char*));
@@ -81,7 +75,7 @@ int		ft_printf(const char *fmt, ...)
 
 int		main()
 {
-	ft_printf("qqqqq : %6s\n", "Hel");
-	//printf("qqqqq : %6.3s\n", "Hellohello");
+	ft_printf("qqqqq : %6.3d\n", -2);
+	printf("qqqqq : %6.3d\n", -2);
 	return 0;
 }
