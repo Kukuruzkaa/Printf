@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_d.c                                             :+:      :+:    :+:   */
+/*   ft_di.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,6 +17,8 @@ int	nblength(long nb)
 	int 	l;
 
 	l = 0;
+	if (nb == 0)
+		return (1);
 	while (nb > 0)
 	{
 		nb = nb / 10;
@@ -39,41 +41,37 @@ void	ft_putnbr(int n)
 		ft_putchar((nb + 48));
 }
 
-void 	ft_process_d(t_flags *flags, va_list ap)
+void 	ft_process_di(t_flags *flags, va_list ap)
 {
-	long 	d;
+	long 	di;
 
-	d = va_arg(ap, int);
-	if (d < 0)
+	di = va_arg(ap, int);
+	if (di < 0)
 	{
-		d *= -1;
-		ft_putchar('-');
-		flags->strlen = nblength(d);
-		flags->strlen++;
+		di *= -1;
+		flags->neg_number = 1;
 	}
-	else
-		flags->strlen = nblength(d);
-	if (d == 0 && flags->is_prec)
-		flags->strlen = 0;
+	flags->strlen = nblength(di);
+	if (di == 0 && flags->is_prec)
+		flags->strlen = 1;
 	if (flags->is_prec && flags->precision > flags->strlen)
 		flags->zero_filler = flags->precision - flags->strlen;
+	if (flags->neg_number)
+		flags->strlen++;
 	if (flags->minus == 0)
 	{
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
+		if (flags->neg_number)
+			ft_putchar('-');
 		fill_space(flags->zero_filler, '0');
-		ft_putnbr(d);
+		ft_putnbr(di);
 	}
 	else if (flags->minus == 1)
 	{
+		if (flags->neg_number)
+			ft_putchar('-');
 		fill_space(flags->zero_filler, '0');
-		ft_putnbr(d);
+		ft_putnbr(di);
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
-		
 	}
 }
-
-
-
-
-
-
