@@ -45,5 +45,6 @@ void	ft_putstr(char *s, int maxlen);
 void 	ft_process_s(t_flags *flags, va_list ap);
 void 	ft_process_di(t_flags *flags, va_list ap);
 void 	ft_process_u(t_flags *flags, va_list ap);
+void 	ft_process_x(t_flags *flags, va_list ap);
 
 #endif

@@ -31,52 +31,40 @@ void	ft_putnbr_base(int n, char *base)
 {
 	unsigned int	nb;
 	int 			i;
+	char 			c;
 
 	i = 0;
-	*base = "0123456789abcdef";
 	nb = n;
 	while (base[i])
 		i++;
-	if (nb >= 16)
+	if (n > 0)
 	{
-		ft_putnbr_base(nb / 16, base);
-		ft_putnbr_base(nb % 16, base);
+		c = base[nb % i];
+		ft_putnbr_base(nb/i, base);
+		write(1, &c, 1);
 	}
-	else
-		ft_putchar((nb + 48));
 }
 
-void 	ft_process_di(t_flags *flags, va_list ap)
+void 	ft_process_x(t_flags *flags, va_list ap)
 {
-	long 	di;
+	unsigned int 	x;
 
-	di = va_arg(ap, int);
-	if (di < 0)
-	{
-		di *= -1;
-		flags->neg_number = 1;
-	}
-	flags->strlen = nblength(di);
-	if (di == 0 && flags->is_prec)
+	x = va_arg(ap, unsigned int);
+	flags->strlen = nblength(x);
+	if (x == 0 && flags->is_prec)
 		flags->strlen = 1;
 	if (flags->is_prec && flags->precision > flags->strlen)
 		flags->zero_filler = flags->precision - flags->strlen;
-	if (flags->neg_number)
-		flags->strlen++;
 	if (flags->minus == 0)
 	{
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
-		if (flags->neg_number)
-			ft_putchar('-');
 		fill_space(flags->zero_filler, '0');
-		ft_putnbr(di);
+		ft_putnbr_base(x, "0123456789abcdef");
 	}
 	else if (flags->minus == 1)
 	{
-		if (flags->neg_number)
-			ft_putchar('-');
 		fill_space(flags->zero_filler, '0');
-		ft_putnbr(di);
+		ft_putnbr_base(x, "0123456789abcdef");
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
 	}
 }

@@ -27,18 +27,29 @@ void init_flags(t_flags *flags)
 
 void	get_width(const char *s, t_flags *flags, va_list ap)
 {
-	// while (s[flags->i] && (s[flags->i] != '.' || ft_strchr("cspdiuxX%", s[flags->i]) != 0))
+	int		j;
+
+	j = flags->i;
 	while (s[flags->i] && (s[flags->i] != '.' && ft_strchr("cspdiuxX%", s[flags->i]) == 0))
-	{
+	{	
 		if (s[flags->i] == '0')
-			flags->zero = 1;
+			{
+				while (ft_strchr("123456789", s[j]) == 1)
+					j++;
+				if (j < flags->i)
+					flags->zero = 0;
+				else 
+					flags->zero = 1;
+			}
 		else if (s[flags->i] == '-')
 			flags->minus = 1;
 		else if (s[flags->i] == '*')
 			flags->width = va_arg(ap, int);
-		else if (ft_isdigit(s[flags->i]))
+		while (ft_isdigit(s[flags->i]))
+		{
 			flags->width = (flags->width * 10) + s[flags->i] - '0';
-		flags->i++;
+			flags->i++;
+		}
 	}
 	if (ft_strchr("cspdiuxX%", s[flags->i]) == 1)
 		flags->type = s[flags->i];
@@ -92,7 +103,7 @@ void 	check_fmt(const char *s, t_flags *flags)
 	// parser()
 	// get_flags(s, flags);
 	get_width(s, flags, ap);
-	//printf(" zero: %d\n", flags->zero);
+	printf(" zero: %d\n", flags->zero);
 	//printf(" minus : %d\n", flags->minus);
 	//printf(" width : %d\n", flags->width);
 	get_precision_and_type(s, flags, ap);
