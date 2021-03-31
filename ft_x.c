@@ -41,7 +41,7 @@ void	ft_putnbr_base(int n, char *base)
 	{
 		c = base[nb % i];
 		ft_putnbr_base(nb/i, base);
-		write(1, &c, 1);
+		ft_flush_char(c);
 	}
 }
 
@@ -55,16 +55,28 @@ void 	ft_process_x(t_flags *flags, va_list ap)
 		flags->strlen = 1;
 	if (flags->is_prec && flags->precision > flags->strlen)
 		flags->zero_filler = flags->precision - flags->strlen;
-	if (flags->minus == 0)
+	else
+		flags->zero_filler = flags->width - flags->strlen;
+	if (flags->is_prec && flags->minus == 0)
 	{
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
 		fill_space(flags->zero_filler, '0');
 		ft_putnbr_base(x, "0123456789abcdef");
 	}
-	else if (flags->minus == 1)
+	else if (flags->is_prec && flags->minus == 1)
 	{
 		fill_space(flags->zero_filler, '0');
 		ft_putnbr_base(x, "0123456789abcdef");
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
+	}
+	else if (flags->is_prec == 0 && flags->minus == 0 && flags->width)
+	{
+		fill_space(flags->zero_filler, '0');
+		ft_putnbr_base(x, "0123456789abcdef");
+	}
+	else if (flags->is_prec == 0 && flags->minus == 1 && flags->width)
+	{
+		ft_putnbr_base(x, "0123456789abcdef");
+		fill_space((flags->width - flags->zero_filler), ' ');
 	}
 }

@@ -32,6 +32,8 @@ typedef struct	s_flags
 	char 	type;
 }				t_flags;
 
+int		g_return;
+
 int	ft_strlen(const char *s);
 void	ft_putchar(char c);
 int		ft_printf(const char* fmt, ...);
@@ -46,5 +48,6 @@ void 	ft_process_s(t_flags *flags, va_list ap);
 void 	ft_process_di(t_flags *flags, va_list ap);
 void 	ft_process_u(t_flags *flags, va_list ap);
 void 	ft_process_x(t_flags *flags, va_list ap);
+void		ft_flush_char(char c);
 
 #endif

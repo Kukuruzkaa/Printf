@@ -38,7 +38,7 @@ void	ft_putnbr(int n)
 		ft_putnbr(nb % 10);
 	}
 	else
-		ft_putchar((nb + 48));
+		ft_flush_char(nb + 48);
 }
 
 void 	ft_process_di(t_flags *flags, va_list ap)
@@ -62,14 +62,14 @@ void 	ft_process_di(t_flags *flags, va_list ap)
 	{
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
 		if (flags->neg_number)
-			ft_putchar('-');
+			ft_flush_char('-');
 		fill_space(flags->zero_filler, '0');
 		ft_putnbr(di);
 	}
 	else if (flags->minus == 1)
 	{
 		if (flags->neg_number)
-			ft_putchar('-');
+			ft_flush_char('-');
 		fill_space(flags->zero_filler, '0');
 		ft_putnbr(di);
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');

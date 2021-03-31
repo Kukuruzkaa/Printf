@@ -36,15 +36,13 @@ int		ft_printf(const char *fmt, ...)
 	//int i;
 
 	flags.i = 0;
-	
+	g_return = 0;
 	while (fmt[flags.i] != '\0')
 	{
 		if (fmt[flags.i] == '%')
 		{
 			flags.i++;
 			check_fmt(fmt, &flags);
-
-
 			if (fmt[flags.i] == 'x')
 				ft_process_x(&flags, args);
 			// if (fmt[flags.i] == 's')
@@ -60,14 +58,11 @@ int		ft_printf(const char *fmt, ...)
 			// 	printf("%c", va_arg(args, int));
 		}
 		else
-		{
-			ft_putchar(fmt[flags.i]);
-			//printf("%s\n", "hola");
-		}
+			ft_flush_char(fmt[flags.i]);
 		flags.i++;
 	}
 	va_end(args);
-	return 1;
+	return (g_return);
 }
 
 
@@ -75,7 +70,7 @@ int		ft_printf(const char *fmt, ...)
 
 int		main()
 {
-	ft_printf("qqqqq : %040x\n", 25);
-	printf("qqqqq : %040x\n", 25);
+	ft_printf("qqqqq : %-040x\n", 25);
+	//printf("qqqqq : %-040x\n", 25);
 	return 0;
 }

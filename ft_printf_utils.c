@@ -24,6 +24,12 @@ int	ft_strlen(const char *s)
 	return (l);
 }
 
+void		ft_flush_char(char c)
+{
+	g_return++;
+	write(1, &c, 1);
+}
+
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
@@ -38,6 +44,7 @@ void	ft_putstr(char *s, int maxlen)
 	{
 		ft_putchar(s[i]);
 		i++;
+		g_return++;
 	}
 }
 
@@ -48,7 +55,7 @@ void 	fill_space(int len, char c)
 	i = 0;
 	while (i < len)
 	{
-		ft_putchar(c);
+		ft_flush_char(c);
 		i++;
 	}
 }
@@ -72,3 +79,4 @@ int	 ft_strchr(const char *s, int c)
 		return (1);
 	return (0);
 }
+

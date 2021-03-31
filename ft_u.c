@@ -38,7 +38,7 @@ void	ft_putnbr(int n)
 		ft_putnbr(nb % 10);
 	}
 	else
-		ft_putchar((nb + 48));
+		ft_flush_char((nb + 48));
 }
 
 void 	ft_process_u(t_flags *flags, va_list ap)

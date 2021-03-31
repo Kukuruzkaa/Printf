@@ -26,7 +26,7 @@ void 	ft_process_c(t_flags *flags, va_list ap)
 			write (1, " ", 1);
 		flags->width--;
 	}
-	ft_putchar(c);
+	ft_flush_char(c);
 	while (flags->width && flags->minus)
 	{
 		if (flags->zero)
