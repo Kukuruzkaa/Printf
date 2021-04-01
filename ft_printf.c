@@ -43,8 +43,8 @@ int		ft_printf(const char *fmt, ...)
 		{
 			flags.i++;
 			check_fmt(fmt, &flags);
-			if (fmt[flags.i] == 'x')
-				ft_process_x(&flags, args);
+			if (fmt[flags.i] == 'd')
+				ft_process_di(&flags, args);
 			// if (fmt[flags.i] == 's')
 			// 	ft_process_s(&flags, args);
 			// {	
@@ -70,7 +70,7 @@ int		ft_printf(const char *fmt, ...)
 
 int		main()
 {
-	ft_printf("qqqqq : %-040x\n", 25);
-	//printf("qqqqq : %-040x\n", 25);
+	ft_printf("qqqqq : %-40d\n", -25);
+	printf("qqqqq : %-40d\n", -25);
 	return 0;
 }
