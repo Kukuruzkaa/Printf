@@ -51,16 +51,36 @@ void 	ft_process_u(t_flags *flags, va_list ap)
 		flags->strlen = 1;
 	if (flags->is_prec && flags->precision > flags->strlen)
 		flags->zero_filler = flags->precision - flags->strlen;
-	if (flags->minus == 0)
+	else
+		flags->zero_filler = flags->width - flags->strlen;
+	if (flags->is_prec && flags->minus == 0)
 	{
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
 		fill_space(flags->zero_filler, '0');
 		ft_putnbr(u);
 	}
-	else if (flags->minus == 1)
+	else if (flags->is_prec && flags->minus == 1)
 	{
 		fill_space(flags->zero_filler, '0');
 		ft_putnbr(u);
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
+	}
+	else if (flags->minus == 0 && flags->is_prec == 0)
+	{
+		if (flags->zero == 1)
+		{
+			fill_space(flags->zero_filler, '0');
+			ft_putnbr(u);
+		}
+		else 
+		{
+			fill_space((flags->width - flags->strlen), ' ');
+			ft_putnbr(u);
+		}
+	}
+	else if (flags->minus == 1 && flags->is_prec == 0)
+	{
+		ft_putnbr(u);
+		fill_space((flags->width - flags->strlen), ' ');
 	}
 }

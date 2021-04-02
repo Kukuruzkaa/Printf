@@ -69,14 +69,14 @@ void 	ft_process_x(t_flags *flags, va_list ap)
 		ft_putnbr_base(x, "0123456789abcdef");
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
 	}
-	else if (flags->is_prec == 0 && flags->minus == 0 && flags->width)
+	else if (flags->is_prec == 0 && flags->minus == 0)
 	{
-		fill_space(flags->zero_filler, '0');
+		fill_space(flags->zero_filler, ' ');
 		ft_putnbr_base(x, "0123456789abcdef");
 	}
-	else if (flags->is_prec == 0 && flags->minus == 1 && flags->width)
+	else if (flags->is_prec == 0 && flags->minus == 1)
 	{
 		ft_putnbr_base(x, "0123456789abcdef");
-		fill_space((flags->width - flags->zero_filler), ' ');
+		fill_space((flags->width - flags->strlen), ' ');
 	}
 }
