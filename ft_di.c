@@ -45,6 +45,7 @@ void 	ft_process_di(t_flags *flags, va_list ap)
 {
 	long 	di;
 
+	flags->i++;
 	di = va_arg(ap, int);
 	if (di < 0)
 	{
@@ -52,14 +53,14 @@ void 	ft_process_di(t_flags *flags, va_list ap)
 		flags->neg_number = 1;
 	}
 	flags->strlen = nblength(di);
-	if (flags->neg_number)
-		flags->strlen++;
 	if (di == 0 && flags->is_prec)
 		flags->strlen = 1;
 	if (flags->is_prec && flags->precision > flags->strlen)
 		flags->zero_filler = flags->precision - flags->strlen;
 	else
 		flags->zero_filler = flags->width - flags->strlen;
+	if (flags->neg_number)
+		flags->strlen++;
 	if (flags->is_prec && flags->minus == 0)
 	{
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');

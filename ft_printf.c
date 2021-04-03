@@ -38,13 +38,18 @@ int		ft_printf(const char *fmt, ...)
 	flags.i = 0;
 	g_return = 0;
 	while (fmt[flags.i] != '\0')
-	{
+	{	
+		if (fmt[flags.i] != '%')
+			ft_flush_char(fmt[flags.i]);
 		if (fmt[flags.i] == '%')
 		{
+			while (fmt[flags.i] != '\0' && fmt[flags.i] == '%')
+			{	
 			flags.i++;
 			check_fmt(fmt, &flags);
-			if (fmt[flags.i] == 'u')
-				ft_process_u(&flags, args);
+			if (fmt[flags.i] == 'd')
+				ft_process_di(&flags, args);
+			
 			// if (fmt[flags.i] == 's')
 			// 	ft_process_s(&flags, args);
 			// {	
@@ -56,10 +61,14 @@ int		ft_printf(const char *fmt, ...)
 			// {	
 			// 	i++;
 			// 	printf("%c", va_arg(args, int));
+
+				
+			} 
+			// if (fmt[flags.i] != '\0')
+			// 	ft_flush_char(fmt[flags.i]);
 		}
-		else
-			ft_flush_char(fmt[flags.i]);
-		flags.i++;
+		else 
+			flags.i++;
 	}
 	va_end(args);
 	return (g_return);
@@ -68,13 +77,14 @@ int		ft_printf(const char *fmt, ...)
 
 
 
-int		main()
-{
-	int	a;
-	int	b;
+// int		main()
+// {
+// 	int	a;
+// 	int	b;
 
-	a = ft_printf("qqqqq : %040u\n", 25);
-	b = printf("qqqqq : %040u\n", 25);
-	printf("a = %u\nb = %u\n", a, b);
-	return 0;
-}
+// 	a = ft_printf("%.6d\n", -3);
+// 	b = printf("%.6d\n", -3);
+// 	printf("a = %u\nb = %u\n", a, b);
+// 	//printf("a = %u\n", a);
+// 	return 0;
+// }

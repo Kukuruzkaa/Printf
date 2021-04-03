@@ -18,17 +18,25 @@ void 	ft_process_s(t_flags *flags, va_list ap)
 
 	flags->i++;
 	s = va_arg(ap, char*);
-	if (!s)
-		return;
+	if (s == NULL)
+		s = "(null)";
 	flags->strlen = ft_strlen(s);
 	if (flags->is_prec && flags->precision < flags->strlen)
 		flags->strlen = flags->precision;
 	if (flags->minus == 0)
 	{
-		fill_space(flags->width - flags->strlen, ' ');
-		ft_putstr(s, flags->strlen);
+		if (flags->zero == 1)
+		{
+			fill_space(flags->width - flags->strlen, '0');
+			ft_putstr(s, flags->strlen);
+		}
+		else 
+		{
+			fill_space(flags->width - flags->strlen, ' ');
+			ft_putstr(s, flags->strlen);
+		}
 	}
-	else 
+	else
 	{
 		ft_putstr(s, flags->strlen);
 		fill_space(flags->width - flags->strlen, ' ');
