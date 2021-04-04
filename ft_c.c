@@ -18,21 +18,21 @@ void 	ft_process_c(t_flags *flags, va_list ap)
 
 	flags->i++;
 	c = va_arg(ap, int);
-	while (!flags->width && flags->minus)
+	while (flags->width && flags->minus == 0)
 	{
 		if (flags->zero)
-			write (1, "0", 1);
+			ft_flush_char('0');
 		else 
-			write (1, " ", 1);
+			ft_flush_char(' ');
 		flags->width--;
 	}
 	ft_flush_char(c);
 	while (flags->width && flags->minus)
 	{
 		if (flags->zero)
-			write (1, "0", 1);
+			ft_flush_char('0');
 		else 
-			write (1, " ", 1);
+			ft_flush_char(' ');
 		flags->width--;
 	}
 }

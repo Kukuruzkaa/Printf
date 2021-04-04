@@ -58,11 +58,18 @@ void 	ft_process_di(t_flags *flags, va_list ap)
 	if (flags->is_prec && flags->precision > flags->strlen)
 		flags->zero_filler = flags->precision - flags->strlen;
 	else
-		flags->zero_filler = flags->width - flags->strlen;
+		flags->zero_filler = 0;
 	if (flags->neg_number)
 		flags->strlen++;
 	if (flags->is_prec && flags->minus == 0)
 	{
+		if (di == 0 && flags->width == 0 && flags->precision == 0)
+			return ;
+		if (di == 0 && flags->width != 0 && flags->precision == 0 )
+		{
+			fill_space(flags->width, ' ');
+			return ;
+		}
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
 		if (flags->neg_number)
 			ft_flush_char('-');
@@ -71,6 +78,11 @@ void 	ft_process_di(t_flags *flags, va_list ap)
 	}
 	else if (flags->is_prec && flags->minus == 1)
 	{
+		if (di == 0 && flags->width != 0 && flags->precision == 0 )
+		{
+			fill_space(flags->width, ' ');
+			return ;
+		}
 		if (flags->neg_number)
 			ft_flush_char('-');
 		fill_space(flags->zero_filler, '0');
@@ -81,6 +93,8 @@ void 	ft_process_di(t_flags *flags, va_list ap)
 	{
 		if (flags->zero == 1)
 		{
+			if (flags->width)
+				flags->zero_filler = flags->width - flags->strlen;
 			if (flags->neg_number)
 				ft_flush_char('-');
 			fill_space(flags->zero_filler, '0');
@@ -101,4 +115,4 @@ void 	ft_process_di(t_flags *flags, va_list ap)
 		ft_putnbr(di);
 		fill_space((flags->width - flags->strlen), ' ');
 	}
-}
+ }

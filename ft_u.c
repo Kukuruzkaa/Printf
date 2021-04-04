@@ -14,12 +14,12 @@
 
 int	nblength(long nb)
 {
-	int 	l;
+	long 	l;
 
 	l = 0;
 	if (nb == 0)
 		return (1);
-	while (nb > 0 && nb <=255)
+	while (nb > 0)
 	{
 		nb = nb / 10;
 		l++;
@@ -27,9 +27,9 @@ int	nblength(long nb)
 	return (l);
 }
 
-void	ft_putnbr(int n)
+void	ft_putnbr(long n)
 {
-	int	nb;
+	long	nb;
 
 	nb = n;
 	if (nb >= 10)
@@ -45,6 +45,7 @@ void 	ft_process_u(t_flags *flags, va_list ap)
 {
 	unsigned int 	u;
 
+	flags->i++;
 	u = va_arg(ap, unsigned int);
 	flags->strlen = nblength(u);
 	if (u == 0 && flags->is_prec)
@@ -52,15 +53,27 @@ void 	ft_process_u(t_flags *flags, va_list ap)
 	if (flags->is_prec && flags->precision > flags->strlen)
 		flags->zero_filler = flags->precision - flags->strlen;
 	else
-		flags->zero_filler = flags->width - flags->strlen;
+		flags->zero_filler = 0;
 	if (flags->is_prec && flags->minus == 0)
 	{
+		if (u == 0 && flags->width == 0 && flags->precision == 0)
+			return ;
+		if (u == 0 && flags->width != 0 && flags->precision == 0 )
+		{
+			fill_space(flags->width, ' ');
+			return ;
+		}
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
 		fill_space(flags->zero_filler, '0');
 		ft_putnbr(u);
 	}
 	else if (flags->is_prec && flags->minus == 1)
 	{
+		if (u == 0 && flags->width != 0 && flags->precision == 0 )
+		{
+			fill_space(flags->width, ' ');
+			return ;
+		}
 		fill_space(flags->zero_filler, '0');
 		ft_putnbr(u);
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
@@ -69,6 +82,8 @@ void 	ft_process_u(t_flags *flags, va_list ap)
 	{
 		if (flags->zero == 1)
 		{
+			if (flags->width)
+				flags->zero_filler = flags->width - flags->strlen;
 			fill_space(flags->zero_filler, '0');
 			ft_putnbr(u);
 		}

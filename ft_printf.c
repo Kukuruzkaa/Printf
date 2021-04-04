@@ -47,8 +47,8 @@ int		ft_printf(const char *fmt, ...)
 			{	
 			flags.i++;
 			check_fmt(fmt, &flags);
-			if (fmt[flags.i] == 'd')
-				ft_process_di(&flags, args);
+			if (fmt[flags.i] == 'c')
+				ft_process_c(&flags, args);
 			
 			// if (fmt[flags.i] == 's')
 			// 	ft_process_s(&flags, args);
@@ -82,8 +82,8 @@ int		ft_printf(const char *fmt, ...)
 // 	int	a;
 // 	int	b;
 
-// 	a = ft_printf("%.6d\n", -3);
-// 	b = printf("%.6d\n", -3);
+// 	a = ft_printf("%3x", 0);
+// 	b = printf("%3x", 0);
 // 	printf("a = %u\nb = %u\n", a, b);
 // 	//printf("a = %u\n", a);
 // 	return 0;
