@@ -49,5 +49,7 @@ void 	ft_process_di(t_flags *flags, va_list ap);
 void 	ft_process_u(t_flags *flags, va_list ap);
 void 	ft_process_x(t_flags *flags, va_list ap);
 void		ft_flush_char(char c);
+void 	ft_process_perc(t_flags *flags);
+void 	ft_process_p(t_flags *flags, va_list ap);
 
 #endif

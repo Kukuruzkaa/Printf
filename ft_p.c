@@ -27,9 +27,9 @@ int	nblength(long nb)
 	return (l);
 }
 
-void	ft_putnbr_base(int n, char *base)
+void	ft_putnbr_base(long n, char *base)
 {
-	unsigned int	nb;
+	long	nb;
 	int 			i;
 	char 			c;
 
@@ -45,38 +45,74 @@ void	ft_putnbr_base(int n, char *base)
 	}
 }
 
-void 	ft_process_x(t_flags *flags, va_list ap)
+void 	ft_process_p(t_flags *flags, va_list ap)
 {
-	void 	*p;
+	long	p;
 
-	p = va_arg(ap, void*);
-	flags->strlen = nblength(p);
+	flags->i++;
+	p = (long)va_arg(ap, long);
+	flags->strlen = nblength(p) + 2;
+	// if (p == 0)
+	// 	ft_putstr("0x", 2);
 	if (p == 0 && flags->is_prec)
-		flags->strlen = 1;
+			flags->strlen = 0;
 	if (flags->is_prec && flags->precision > flags->strlen)
 		flags->zero_filler = flags->precision - flags->strlen;
 	else
-		flags->zero_filler = flags->width - flags->strlen;
+		flags->zero_filler = 0;
 	if (flags->is_prec && flags->minus == 0)
 	{
+		if (p == 0 && flags->width == 0 && flags->precision == 0)
+			return ;
+		if (p == 0 && flags->width != 0 && flags->precision == 0 )
+		{
+			fill_space(flags->width, ' ');make
+			return ;
+		}
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
+		ft_putstr("0x", 2);
 		fill_space(flags->zero_filler, '0');
 		ft_putnbr_base(p, "0123456789abcdef");
 	}
 	else if (flags->is_prec && flags->minus == 1)
 	{
+		if (p == 0 && flags->width != 0 && flags->precision == 0 )
+		{
+			fill_space(flags->width, ' ');
+			return ;
+		}
 		fill_space(flags->zero_filler, '0');
+		ft_putstr("0x", 2);
 		ft_putnbr_base(p, "0123456789abcdef");
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
 	}
 	else if (flags->is_prec == 0 && flags->minus == 0)
 	{
-		fill_space(flags->zero_filler, ' ');
-		ft_putnbr_base(p, "0123456789abcdef");
+		if (flags->zero == 1)
+		{
+			if (flags->width)
+				flags->zero_filler = flags->width - flags->strlen;
+			fill_space(flags->zero_filler, '0');
+			if (p == 0)
+				ft_flush_char('0');
+			ft_putstr("0x", 2);
+			ft_putnbr_base(p, "0123456789abcdef");
+		}
+		else
+		{
+			fill_space((flags->width - flags->strlen), ' ');
+			ft_putstr("0x", 2);
+			if (p == 0)
+				ft_flush_char('0');
+			ft_putnbr_base(p, "0123456789abcdef");
+		}
 	}
 	else if (flags->is_prec == 0 && flags->minus == 1)
 	{
+		ft_putstr("0x", 2);
 		ft_putnbr_base(p, "0123456789abcdef");
+		if (p == 0)
+				ft_flush_char('0');
 		fill_space((flags->width - flags->strlen), ' ');
 	}
 }

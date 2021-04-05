@@ -6,7 +6,7 @@
 #    By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/24 13:57:56 by ddiakova          #+#    #+#              #
-#    Updated: 2021/01/30 15:41:31 by ddiakova         ###   ########.fr        #
+#    Updated: 2021/04/05 11:20:00 by ddiakova         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ SRCS 			= checker.c \
 				ft_di.c \
 				ft_u.c \
 				ft_printf.c \
+				ft_perc.c \
+				ft_p.c \
 
 OBJS			= $(SRCS:.c=.o)
 
