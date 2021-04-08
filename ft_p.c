@@ -52,10 +52,8 @@ void 	ft_process_p(t_flags *flags, va_list ap)
 	flags->i++;
 	p = (long)va_arg(ap, long);
 	flags->strlen = nblength(p) + 2;
-	// if (p == 0)
-	// 	ft_putstr("0x", 2);
 	if (p == 0 && flags->is_prec)
-			flags->strlen = 0;
+		flags->strlen = 0;
 	if (flags->is_prec && flags->precision > flags->strlen)
 		flags->zero_filler = flags->precision - flags->strlen;
 	else
@@ -63,14 +61,20 @@ void 	ft_process_p(t_flags *flags, va_list ap)
 	if (flags->is_prec && flags->minus == 0)
 	{
 		if (p == 0 && flags->width == 0 && flags->precision == 0)
+		{
+			ft_putstr("0x", 2);
 			return ;
+		}
 		if (p == 0 && flags->width != 0 && flags->precision == 0 )
 		{
-			fill_space(flags->width, ' ');make
+			fill_space(flags->width - 2, ' ');
+			ft_putstr("0x", 2);
 			return ;
 		}
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
 		ft_putstr("0x", 2);
+		// if (flags->precision < flags->strlen)
+		// 	fill_space(flags->zero_filler + 2, '0');
 		fill_space(flags->zero_filler, '0');
 		ft_putnbr_base(p, "0123456789abcdef");
 	}

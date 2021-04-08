@@ -82,9 +82,9 @@ int		ft_printf(const char *fmt, ...)
 // 	int	a;
 // 	int	b;
 
-// 	a = ft_printf("%-3%");
-// 	b = printf("%-3%");
+// 	a = ft_printf("%05%");
+// 	b = printf("%05%");
 // 	printf("a = %u\nb = %u\n", a, b);
-// 	//printf("a = %u\n", a);
+// 	printf("a = %u\n", a);
 // 	return 0;
 // }
