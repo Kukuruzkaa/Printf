@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	nblength(long nb)
+static int	nblength(long nb)
 {
 	int 	l;
 
@@ -27,7 +27,7 @@ int	nblength(long nb)
 	return (l);
 }
 
-void	ft_putnbr(int n)
+static void	ft_putnbr(int n)
 {
 	long int	nb;
 
@@ -79,6 +79,11 @@ void 	ft_process_di(t_flags *flags, va_list ap)
 	else if (flags->is_prec && flags->minus == 1)
 	{
 		if (di == 0 && flags->width != 0 && flags->precision == 0 )
+		{
+			fill_space(flags->width, ' ');
+			return ;
+		}
+		else if (di == 0 && flags->width == 0 && flags->precision == 0 )
 		{
 			fill_space(flags->width, ' ');
 			return ;

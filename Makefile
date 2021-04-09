@@ -6,7 +6,7 @@
 #    By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/24 13:57:56 by ddiakova          #+#    #+#              #
-#    Updated: 2021/04/05 11:20:00 by ddiakova         ###   ########.fr        #
+#    Updated: 2021/04/09 15:35:32 by ddiakova         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME			= libftprintf.a
 SRCS 			= checker.c \
 				ft_printf_utils.c \
 				ft_x.c \
+				ft_xx.c \
 				ft_c.c \
 				ft_s.c \
 				ft_di.c \
@@ -27,7 +28,7 @@ OBJS			= $(SRCS:.c=.o)
 
 RM 				= rm -f
 
-CFLAGS 			= -Wall -Werror -Wextra -c
+CFLAGS 			= -Wall -Werror -Wextra -g -c
 
 INCLUDE 		= \
 		  		ft_printf.h
@@ -47,5 +48,9 @@ fclean:			clean
 				$(RM) $(NAME)
 
 re: 			fclean all
+
+test:			all
+				gcc -Wall -Werror -Wextra printf-tester/main.c $(NAME)
+				./a.out
 
 .PHONY: 		all clean fclean re bonus

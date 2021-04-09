@@ -25,7 +25,7 @@ void init_flags(t_flags *flags)
 	flags->type = ' ';
 }
 
-void	get_width(const char *s, t_flags *flags, va_list ap)
+void	get_width(const char *s, t_flags *flags, va_list *ap)
 {
 	int		j;
 
@@ -47,7 +47,10 @@ void	get_width(const char *s, t_flags *flags, va_list ap)
 			flags->i++;
 		}
 		else if (s[flags->i] == '*')
-			flags->width = va_arg(ap, int);
+		{
+			flags->width = va_arg(*ap, int);
+			flags->i++;
+		}
 		while (ft_isdigit(s[flags->i]))
 		{
 			flags->width = (flags->width * 10) + s[flags->i] - '0';
@@ -61,7 +64,7 @@ void	get_width(const char *s, t_flags *flags, va_list ap)
 
 
 
-void	get_precision_and_type(const char *s, t_flags *flags, va_list ap)
+void	get_precision_and_type(const char *s, t_flags *flags, va_list *ap)
 {
 	while (s[flags->i] && ft_strchr("cspdiuxX%", s[flags->i]) == 0)
 	{
@@ -70,7 +73,10 @@ void	get_precision_and_type(const char *s, t_flags *flags, va_list ap)
 			flags->is_prec = 1;
 			flags->i++;
 			if (s[flags->i] == '*')
-				flags->precision = va_arg(ap, int);	
+			{
+				flags->width = va_arg(*ap, int);
+				flags->i++;
+			}
 			else 
 			{
 				while (ft_isdigit(s[flags->i]))

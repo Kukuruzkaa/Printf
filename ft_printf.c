@@ -33,7 +33,6 @@ int		ft_printf(const char *fmt, ...)
 	t_flags flags;
 	va_list args;
 	va_start(args, fmt);
-	//int i;
 
 	flags.i = 0;
 	g_return = 0;
@@ -47,25 +46,23 @@ int		ft_printf(const char *fmt, ...)
 			{	
 			flags.i++;
 			check_fmt(fmt, &flags);
-			if (fmt[flags.i] == 'p')
+			if (fmt[flags.i] == 'c')
+				ft_process_c(&flags, args);
+			else if (fmt[flags.i] == 's')
+				ft_process_s(&flags, args);
+			else if (fmt[flags.i] == 'p')
 				ft_process_p(&flags, args);
-			
-			// if (fmt[flags.i] == 's')
-			// 	ft_process_s(&flags, args);
-			// {	
-			// 	i++;
-			// 	printf("%s", va_arg(args, char*));
-			// }
-			// if (fmt[flags.i] == 'c') 
-			// 	ft_process_c(&flags, args);
-			// {	
-			// 	i++;
-			// 	printf("%c", va_arg(args, int));
-
-				
+			else if (fmt[flags.i] == 'd'|| fmt[flags.i] == 'i')
+				ft_process_di(&flags, args);
+			else if (fmt[flags.i] == 'u')
+				ft_process_u(&flags, args);
+			else if (fmt[flags.i] == 'x')
+				ft_process_x(&flags, args);
+			else if (fmt[flags.i] == 'X')
+				ft_process_xx(&flags, args);
+			else if (fmt[flags.i] == '%')
+				ft_process_perc(&flags);	
 			} 
-			// if (fmt[flags.i] != '\0')
-			// 	ft_flush_char(fmt[flags.i]);
 		}
 		else 
 			flags.i++;
@@ -73,18 +70,3 @@ int		ft_printf(const char *fmt, ...)
 	va_end(args);
 	return (g_return);
 }
-
-
-
-
-// int		main()
-// {
-// 	int	a;
-// 	int	b;
-
-// 	a = ft_printf("%05%");
-// 	b = printf("%05%");
-// 	printf("a = %u\nb = %u\n", a, b);
-// 	printf("a = %u\n", a);
-// 	return 0;
-// }

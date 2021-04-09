@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	nblength(long nb)
+static int	nblength(long nb)
 {
 	long 	l;
 
@@ -27,7 +27,7 @@ int	nblength(long nb)
 	return (l);
 }
 
-void	ft_putnbr(long n)
+static void	ft_putnbr(long n)
 {
 	long	nb;
 
