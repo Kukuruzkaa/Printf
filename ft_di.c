@@ -27,7 +27,7 @@ static int	nblength(long nb)
 	return (l);
 }
 
-static void	ft_putnbr(int n)
+static void	ft_putnbr(long int n)
 {
 	long int	nb;
 
@@ -64,14 +64,16 @@ void 	ft_process_di(t_flags *flags, va_list ap)
 	if (flags->is_prec && flags->minus == 0)
 	{
 		if (di == 0 && flags->width == 0 && flags->precision == 0)
+		{
 			return ;
-		if (di == 0 && flags->width != 0 && flags->precision == 0 )
+		}
+		else if (di == 0 && flags->width != 0 && flags->precision == 0 )
 		{
 			fill_space(flags->width, ' ');
 			return ;
 		}
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');
-		if (flags->neg_number)
+			if (flags->neg_number)
 			ft_flush_char('-');
 		fill_space(flags->zero_filler, '0');
 		ft_putnbr(di);

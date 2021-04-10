@@ -12,22 +12,6 @@
 
 #include "ft_printf.h"
 
-// char*	concatinate(int n, ...)
-// {
-// 	char *str;
-
-// 	str = strdup("");
-// 	va_list args;
-// 	va_start(args, n);
-
-// 	for (int i = 0; i < n; i++)
-// 	{
-// 		str = strcat(str, va_arg(args, char*));
-// 	}
-// 	va_end(args);
-// 	return str;
-// }
-
 int		ft_printf(const char *fmt, ...)
 {
 	t_flags flags;
@@ -45,7 +29,7 @@ int		ft_printf(const char *fmt, ...)
 			while (fmt[flags.i] != '\0' && fmt[flags.i] == '%')
 			{	
 			flags.i++;
-			check_fmt(fmt, &flags);
+			check_fmt(fmt, &flags, &args);
 			if (fmt[flags.i] == 'c')
 				ft_process_c(&flags, args);
 			else if (fmt[flags.i] == 's')

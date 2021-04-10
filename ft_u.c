@@ -74,6 +74,11 @@ void 	ft_process_u(t_flags *flags, va_list ap)
 			fill_space(flags->width, ' ');
 			return ;
 		}
+		else if (u == 0 && flags->width == 0 && flags->precision == 0 )
+		{
+			fill_space(flags->zero_filler, '0');
+			return ;
+		}
 		fill_space(flags->zero_filler, '0');
 		ft_putnbr(u);
 		fill_space(flags->width - (flags->zero_filler + flags->strlen), ' ');

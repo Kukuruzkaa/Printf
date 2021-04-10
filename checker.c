@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 14:52:08 by ddiakova          #+#    #+#             */
-/*   Updated: 2021/03/20 14:52:21 by ddiakova         ###   ########.fr       */
+/*   Updated: 2021/04/10 13:05:12 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ void	get_width(const char *s, t_flags *flags, va_list *ap)
 			flags->i++;
 		}
 	}
+	if (flags->width < 0)
+	{
+		flags->width = -flags->width;
+		flags->minus = 1;
+	}
 	if (ft_strchr("cspdiuxX%", s[flags->i]) == 1)
 		flags->type = s[flags->i];
 }
@@ -74,7 +79,7 @@ void	get_precision_and_type(const char *s, t_flags *flags, va_list *ap)
 			flags->i++;
 			if (s[flags->i] == '*')
 			{
-				flags->width = va_arg(*ap, int);
+				flags->precision = va_arg(*ap, int);
 				flags->i++;
 			}
 			else 
@@ -87,7 +92,12 @@ void	get_precision_and_type(const char *s, t_flags *flags, va_list *ap)
 			}
 		}
 	}
-	if (ft_strchr("cspdiuxX%", s[flags->i]) == 1)
+	if (flags->precision < 0)
+	{
+		flags->precision = 0;
+		flags->is_prec = 0;
+	}
+	else if (ft_strchr("cspdiuxX%", s[flags->i]) == 1)
 		flags->type = s[flags->i];
 }
 
@@ -105,11 +115,8 @@ void	get_precision_and_type(const char *s, t_flags *flags, va_list *ap)
 // 	}
 // }
 
-void 	check_fmt(const char *s, t_flags *flags)
+void 	check_fmt(const char *s, t_flags *flags, va_list *ap)
 {
-	//int i;
-	va_list ap;
-
 	init_flags(flags);
 
 	// parser()
