@@ -122,21 +122,5 @@ void 	check_fmt(const char *s, t_flags *flags, va_list *ap)
 	// parser()
 	// get_flags(s, flags);
 	get_width(s, flags, ap);
-	//printf(" zero: %d\n", flags->zero);
-	//printf(" minus : %d\n", flags->minus);
-	//printf(" width : %d\n", flags->width);
 	get_precision_and_type(s, flags, ap);
-	//printf(" precision : %d\n", flags->precision);
-	//printf(" type: %c\n", flags->type);
 }
-
-
-
-
-
-
-
-
-
-// 	// printer()
-
