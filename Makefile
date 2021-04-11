@@ -6,7 +6,7 @@
 #    By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/24 13:57:56 by ddiakova          #+#    #+#              #
-#    Updated: 2021/04/09 15:35:32 by ddiakova         ###   ########.fr        #
+#    Updated: 2021/04/11 15:50:38 by ddiakova         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,28 +25,34 @@ SRCS 			= checker.c \
 				ft_perc.c \
 				ft_p.c \
 
-OBJS			= $(SRCS:.c=.o)
+OBJS			= $(SRCS:%.c=%.o)
 
 RM 				= rm -f
 
 CFLAGS 			= -Wall -Werror -Wextra -g -c
 
-INCLUDE 		= \
-		  		ft_printf.h
+INCLUDE 		= ft_printf.h
 
 all:			$(NAME)
 
-$(NAME):		$(OBJS) $(INCLUDE)
-					ar rcs $(NAME) $(OBJS)
+.c.o:
+				${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+
+$(NAME):		$(OBJS) 
+									make -C ./libft/
+									cp ./libft/libft.a ./$(NAME)
+									ar rcs $(NAME) $(OBJS)
 
 $(OBJS):		$(SRCS)
 				gcc $(CFLAGS) $(SRCS) -I $(INCLUDE)
 
 clean:
-				$(RM) $(OBJS) $(BONUS_OBJS)
+				$(RM) $(OBJS)
+					make clean -C ./libft
 
 fclean:			clean
 				$(RM) $(NAME)
+					make fclean -C ./libft
 
 re: 			fclean all
 

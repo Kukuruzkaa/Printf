@@ -6,13 +6,13 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 14:52:08 by ddiakova          #+#    #+#             */
-/*   Updated: 2021/04/10 13:05:12 by ddiakova         ###   ########.fr       */
+/*   Updated: 2021/04/11 14:42:49 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void init_flags(t_flags *flags)
+void	init_flags(t_flags *flags)
 {
 	flags->width = 0;
 	flags->precision = 0;
@@ -25,28 +25,35 @@ void init_flags(t_flags *flags)
 	flags->type = ' ';
 }
 
-void	get_width(const char *s, t_flags *flags, va_list *ap)
+void	get_flags(const char *s, t_flags *flags)
 {
 	int		j;
 
 	j = flags->i;
-	while (s[flags->i] && (s[flags->i] != '.' && ft_strchr("cspdiuxX%", s[flags->i]) == 0))
-	{	
+	while (s[flags->i] != '.' && ft_strchrint("cspdiuxX%", s[flags->i]) == 0)
+	{
 		if (s[flags->i] == '0')
-			{
-				while (ft_strchr("123456789", s[j]) == 1)
-					j++;
-				if (j < flags->i)
-					flags->zero = 0;
-				else 
-					flags->zero = 1;
-			}
-		else if (s[flags->i] == '-')
 		{
-			flags->minus = 1;
-			flags->i++;
+			while (ft_strchrint("123456789", s[j]) == 1)
+				j++;
+			if (j < flags->i)
+				flags->zero = 0;
+			else
+				flags->zero = 1;
 		}
-		else if (s[flags->i] == '*')
+		else if (s[flags->i] == '-')
+			flags->minus = 1;
+		else
+			break ;
+		flags->i++;
+	}
+}
+
+void	get_width(const char *s, t_flags *flags, va_list *ap)
+{
+	while (s[flags->i] != '.' && ft_strchrint("cspdiuxX%", s[flags->i]) == 0)
+	{
+		if (s[flags->i] == '*')
 		{
 			flags->width = va_arg(*ap, int);
 			flags->i++;
@@ -62,19 +69,16 @@ void	get_width(const char *s, t_flags *flags, va_list *ap)
 		flags->width = -flags->width;
 		flags->minus = 1;
 	}
-	if (ft_strchr("cspdiuxX%", s[flags->i]) == 1)
+	if (ft_strchrint("cspdiuxX%", s[flags->i]) == 1)
 		flags->type = s[flags->i];
 }
 
-
-
-
 void	get_precision_and_type(const char *s, t_flags *flags, va_list *ap)
 {
-	while (s[flags->i] && ft_strchr("cspdiuxX%", s[flags->i]) == 0)
+	while (s[flags->i] && ft_strchrint("cspdiuxX%", s[flags->i]) == 0)
 	{
 		if (s[flags->i] == '.')
-		{	
+		{
 			flags->is_prec = 1;
 			flags->i++;
 			if (s[flags->i] == '*')
@@ -82,13 +86,10 @@ void	get_precision_and_type(const char *s, t_flags *flags, va_list *ap)
 				flags->precision = va_arg(*ap, int);
 				flags->i++;
 			}
-			else 
+			while (ft_isdigit(s[flags->i]))
 			{
-				while (ft_isdigit(s[flags->i]))
-				{
-					flags->precision = (flags->precision * 10) + s[flags->i] - '0';
-					flags->i++;
-				}
+				flags->precision = (flags->precision * 10) + s[flags->i] - '0';
+				flags->i++;
 			}
 		}
 	}
@@ -97,30 +98,14 @@ void	get_precision_and_type(const char *s, t_flags *flags, va_list *ap)
 		flags->precision = 0;
 		flags->is_prec = 0;
 	}
-	else if (ft_strchr("cspdiuxX%", s[flags->i]) == 1)
+	else if (ft_strchrint("cspdiuxX%", s[flags->i]) == 1)
 		flags->type = s[flags->i];
 }
 
-
-
-// void	get_flags(const char *s, t_flags *flags)
-// {
-// 	while (s[flags->i])
-// 	{
-// 		if (s[flags->i] == '0')
-// 			flags->zero = 1;
-// 		else if (s[flags->i] == '-')
-// 			flags->minus = 1;
-// 		flags->i++;
-// 	}
-// }
-
-void 	check_fmt(const char *s, t_flags *flags, va_list *ap)
+void	check_fmt(const char *s, t_flags *flags, va_list *ap)
 {
 	init_flags(flags);
-
-	// parser()
-	// get_flags(s, flags);
+	get_flags(s, flags);
 	get_width(s, flags, ap);
 	get_precision_and_type(s, flags, ap);
 }
