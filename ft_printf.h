@@ -51,4 +51,6 @@ void			ft_process_perc(t_flags *flags);
 void			ft_process_p(t_flags *flags, va_list ap);
 void			ft_process_xx(t_flags *flags, va_list ap);
 
+//comment
+
 #endif
