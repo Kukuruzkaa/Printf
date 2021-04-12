@@ -12,46 +12,13 @@
 
 #include "ft_printf.h"
 
-static int	nblength(long nb)
-{
-	long 	l;
-
-	l = 0;
-	if (nb == 0)
-		return (1);
-	while (nb > 0)
-	{
-		nb = nb / 16;
-		l++;
-	}
-	return (l);
-}
-
-static void	ft_putnbr_base(long n, char *base)
-{
-	long	nb;
-	int 			i;
-	char 			c;
-
-	i = 0;
-	nb = n;
-	while (base[i])
-		i++;
-	if (n > 0)
-	{
-		c = base[nb % i];
-		ft_putnbr_base(nb/i, base);
-		ft_flush_char(c);
-	}
-}
-
 void 	ft_process_xx(t_flags *flags, va_list ap)
 {
 	unsigned int 	xx;
 
 	flags->i++;
 	xx = va_arg(ap, unsigned int);
-	flags->strlen = nblength(xx);
+	flags->strlen = nbhexlength(xx);
 	if (xx == 0 && flags->is_prec)
 		flags->strlen = 0;
 	if (flags->is_prec && flags->precision > flags->strlen)

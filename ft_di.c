@@ -10,36 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "ft_printf.h"
-
-static int	nblength(long nb)
-{
-	int 	l;
-
-	l = 0;
-	if (nb == 0)
-		return (1);
-	while (nb > 0)
-	{
-		nb = nb / 10;
-		l++;
-	}
-	return (l);
-}
-
-static void	ft_putnbr(long int n)
-{
-	long int	nb;
-
-	nb = n;
-	if (nb >= 10)
-	{
-		ft_putnbr(nb / 10);
-		ft_putnbr(nb % 10);
-	}
-	else
-		ft_flush_char(nb + 48);
-}
 
 void 	ft_process_di(t_flags *flags, va_list ap)
 {

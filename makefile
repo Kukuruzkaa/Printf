@@ -15,12 +15,14 @@ NAME			= libftprintf.a
 
 SRCS 			= checker.c \
 				ft_printf_utils.c \
+				ft_convert_dec_bases.c \
+				ft_convert_hex_bases.c \
 				ft_x.c \
 				ft_xx.c \
 				ft_c.c \
 				ft_s.c \
 				ft_di.c \
-				ft_u.c \
+				ft_u2.c \
 				ft_printf.c \
 				ft_perc.c \
 				ft_p.c \

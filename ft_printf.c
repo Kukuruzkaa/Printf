@@ -33,7 +33,7 @@ int		ft_printf(const char *fmt, ...)
 			if (fmt[flags.i] == 'c')
 				ft_process_c(&flags, args);
 			else if (fmt[flags.i] == 's')
-				ft_process_s(&flags, args);
+				ft_process_s(fmt, &flags, args);
 			else if (fmt[flags.i] == 'p')
 				ft_process_p(&flags, args);
 			else if (fmt[flags.i] == 'd'|| fmt[flags.i] == 'i')
